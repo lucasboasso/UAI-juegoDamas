@@ -1,0 +1,34 @@
+body
+{
+  color: #333333;
+  background-color: #DDDDDD;
+}
+
+#contenedorTablero
+{
+  width: 490px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+#tablero
+{
+  border: 5px solid #999999;
+  width: 480px;
+  height: 480px;
+  margin-top: 30px;
+}
+#cuadradoBlanco
+{
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  float: left;
+}
+#cuadradoNegro
+{
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  float: left;
+}
