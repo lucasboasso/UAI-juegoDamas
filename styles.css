@@ -4,74 +4,69 @@ a {
 }
 
 body {
-color: #333333;
-background-color: #DDDDDD;
-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-font-size: 14px;
+  color: #333333;
+  background-color: #DDDDDD;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-h1 {
-
-}
-
 
 nav{
-    background-color: #D4707A;
+  background-color: #D4707A;
 }
 
 .topnav {
-    overflow: hidden;
-    font-family: 'Capriola', sans-serif;
-    margin-bottom: 20px;
+  font-family: 'Capriola', sans-serif;
 }
 
 .topnav .marca {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 .topnav a {
-    float: left;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 14px;
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14px;
   }
 
 .breadcrumb {
-    padding: 10px 16px;
-    list-style: none;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    
+  padding: 4px 15px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
 }
 
 .breadcrumb li {
-    display: inline;
-    font-size: 14px;
+  display: inline;
+  font-size: 14px;
 }
 
 .breadcrumb li+li:before {
-    padding: 8px;
-    color: black;
-    content: "/\00a0";
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
 }
 
- .breadcrumb li a:hover {
-    color: #01447e;
-    text-decoration: underline;
+.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
 }
 
 .breadcrumb .active {
-    color: #777;
+  color: #777;
 }
 
 .container {
-    width: 750px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  width: 1170px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 #contenedorTablero
@@ -87,6 +82,7 @@ nav{
   width: 480px;
   height: 480px;
   margin-top: 30px;
+  margin-bottom: 20px;
 }
 #cuadradoBlanco
 {
@@ -101,4 +97,61 @@ nav{
   height: 60px;
   background-color: black;
   float: left;
+}
+
+.footer {
+  padding: 19px 14px;
+  margin-top: auto;
+  border-top: 1px solid #CAC3C3;
+  background-color: white;
+}
+
+.footer p 
+{
+	margin-bottom: 0;
+	color: #777;
+	padding: 11px;
+	font-size: 12px;
+}
+
+#buttonContainer {
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+#newGameButton {
+	/*-moz-border-radius:12px;
+	-webkit-border-radius:12px;
+   No sabia si ponerle soporte para navegadores
+  */
+  border-radius: 12px;
+	background: -moz-linear-gradient(center top , #57aeea, #3d94d1) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear,center bottom,center top,from(#3d94d1),to(#57aeea));
+    /*filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#57aeea',EndColorStr='#3d94d1');
+    Esta linea no se que hace */
+	background-color:lightBlue;
+	display:inline-block;
+	font-size:21px;
+	margin-top:20px;
+	padding:10px 45px;
+	vertical-align:middle;
+	font-family:Arial;
+	color:#fff;
+	border:1px solid #84C5F3;
+	text-shadow:0 0 3px #333333;
+	cursor:pointer;
+	/*-moz-box-shadow:0 0 8px 1px #888888;
+	-webkit-box-shadow:0 0 8px 1px #888888;*/
+  box-shadow:0 0 8px 1px #888888 ;
+}
+
+#desc
+{
+	margin: 20px 0 10px 20px;
+	padding: 10px;
+	border-radius: 4px;
+	background: #efefef;
 }
