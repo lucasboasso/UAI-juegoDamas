@@ -76,6 +76,7 @@ nav{
   margin-left: auto;
   margin-right: auto;
 }
+
 #tablero
 {
   border: 5px solid #999999;
@@ -84,14 +85,16 @@ nav{
   margin-top: 30px;
   margin-bottom: 20px;
 }
-#cuadradoBlanco
+
+.cuadradoBlanco
 {
   width: 60px;
   height: 60px;
   background-color: white;
   float: left;
 }
-#cuadradoNegro
+
+.cuadradoNegro
 {
   width: 60px;
   height: 60px;
