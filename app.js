@@ -56,6 +56,25 @@ function imprimirTablero(){
         })
     })
 }
+
+
 window.onload = function() {
     imprimirTablero()
+    
+    var turno = "negras";
+    var clickCelda = document.getElementById("tablero");
+    clickCelda.addEventListener("click", selecFicha, true);
+    function selecFicha(clickedCellEvent){
+        const clickedCell = clickedCellEvent.target
+        if (clickedCell.classList.contains('seleccionado')) {
+            clickedCell.classList.remove('seleccionado')
+        }
+        else if (clickedCell.classList.contains('fichaNegra')) {
+            clickedCell.classList.add('seleccionado')
+        }
+    }
+    /*const nuevaPartida = document.getElementById("newGameButton");
+    nuevaPartida.onclick = 'imprimirTablero()'; */
+
 }
+
