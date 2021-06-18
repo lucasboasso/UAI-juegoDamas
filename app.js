@@ -2,7 +2,7 @@
     0 = Cuadrado Blanco Vacio
     1 = Cuadrado Negro Vacio
     2 = Cuadrado Negro con Ficha Blanca
-    3 = Cuadrado Negro con Ficha Negra
+    3 = Cuadrado Negro con Ficha Roja
     */
 
 var estadoJuego = [
@@ -14,7 +14,7 @@ var estadoJuego = [
     [3,0,3,0,3,0,3,0],
     [0,3,0,3,0,3,0,3],
     [3,0,3,0,3,0,3,0]
-]        
+]
     /* estadoJuego.forEach(function(row){
         row.forEach(function(cell){
             var cuadrado = document.createElement('div')            
@@ -29,6 +29,7 @@ var estadoJuego = [
         console.log(cuadrado)
         })
     }) */
+
 function imprimirTablero(){
     var tablero = document.getElementById("tablero");
     estadoJuego.forEach(function(row){
@@ -48,7 +49,7 @@ function imprimirTablero(){
                 tablero.appendChild(cuadrado)
                 break;
                 case 3:
-                cuadrado.className = "cuadradoNegro fichaNegra";
+                cuadrado.className = "cuadradoNegro fichaRoja";
                 tablero.appendChild(cuadrado)
                 break;
             }                        
@@ -57,24 +58,39 @@ function imprimirTablero(){
     })
 }
 
-
 window.onload = function() {
     imprimirTablero()
     
-    var turno = "negras";
+    var turno = "rojas";
     var clickCelda = document.getElementById("tablero");
     clickCelda.addEventListener("click", selecFicha, true);
+    console.log(clickCelda)
     function selecFicha(clickedCellEvent){
         const clickedCell = clickedCellEvent.target
         if (clickedCell.classList.contains('seleccionado')) {
             clickedCell.classList.remove('seleccionado')
         }
-        else if (clickedCell.classList.contains('fichaNegra')) {
+        else if (clickedCell.classList.contains('fichaRoja') && turno === "rojas") {
             clickedCell.classList.add('seleccionado')
+            cambioJugador()
+        }
+        else if (clickedCell.classList.contains('fichaBlanca') && turno === "blancas") {
+            clickedCell.classList.add('seleccionado')
+            cambioJugador()
+        } 
+    }
+    var cartelTurno = document.getElementById("turno");
+    function cambioJugador(){
+        if(turno === "rojas"){
+            cartelTurno.innerHTML = "Turno Fichas Blancas";
+            turno = "blancas";
+        }
+        else{
+            cartelTurno.innerHTML = "Turno Fichas Rojas";
+            turno = "rojas";
         }
     }
     /*const nuevaPartida = document.getElementById("newGameButton");
     nuevaPartida.onclick = 'imprimirTablero()'; */
 
 }
-
