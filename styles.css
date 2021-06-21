@@ -15,7 +15,7 @@ body {
   padding: 0;
 }
 
-nav{
+nav {
   background-color: #D4707A;
   display: flex;
 }
@@ -35,7 +35,7 @@ nav{
   padding: 14px 16px;
   text-decoration: none;
   font-size: 14px;
-  }
+}
 
 .breadcrumb {
   padding: 4px 15px;
@@ -69,16 +69,14 @@ nav{
   padding-left: 15px;
 }
 
-#contenedorTablero
-{
+#contenedorTablero {
   width: 490px;
   position: relative;
   margin-left: auto;
   margin-right: auto;
 }
 
-#tablero
-{
+#tablero {
   border: 5px solid #999999;
   width: 100%;
   height: 100%;
@@ -88,16 +86,14 @@ nav{
   margin-top: 30px;
 }
 
-.cuadradoBlanco
-{
+.cuadradoBlanco {
   width: 60px;
   height: 60px;
   background-color: white;
   float: left;
 }
 
-.cuadradoNegro
-{
+.cuadradoNegro {
   width: 60px;
   height: 60px;
   background-color: black;
@@ -111,8 +107,7 @@ nav{
   background-color: white;
 }
 
-.footer p 
-{
+.footer p {
 	margin-bottom: 0;
 	color: #777;
 	padding: 11px;
@@ -127,7 +122,7 @@ nav{
   text-align: center;
 }
 
-#newGameButton {
+.gameButtons {
 	/*-moz-border-radius:12px;
 	-webkit-border-radius:12px;
    No sabia si ponerle soporte para navegadores
@@ -153,66 +148,39 @@ nav{
   box-shadow:0 0 8px 1px #888888 ;
 }
 
-#desc
-{
+#desc {
 	margin: 20px 0 10px 20px;
 	padding: 10px;
 	border-radius: 4px;
 	background: #efefef;
 }
 
-.fichaRoja{
+.fichaRoja {
   background-image: url(./img/PieceBlue.png)
 }
 
-.fichaBlanca{
+.fichaBlanca {
   background-image: url(./img/PieceGreen.png);
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
-
-[class*="col-"] {
-  float: left;
-  padding: 15px;
-}
-
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  [class*="col-"] {
-    width: 100%;
-  }
-}
-
 .seleccionado {
-  background-color: red;
+  background-color:#074F7F;
+	-moz-box-shadow:0 0 10px 7px #5AADE6;
+	-webkit-box-shadow:0 0 10px 7px #5AADE6;
 }
 
-#turno{
-  text-align: left; 
+#turno {
+  text-align: center; 
   font-family: Arial Black; 
   font-weight: bold; 
   font-size: 30px; 
-  color: #fff; 
-  text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 0 #acacac, 0 6px 1px rgba(0,0,0,0.1), 0 0 5px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.3), 0 3px 5px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.2), 0 20px 20px rgba(0,0,0,0.15);
+  color: rgb(0, 0, 0);
+}
+
+.notAllowed {
+  background-image: url(./img/notAllowed.png);
 }
