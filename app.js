@@ -4,6 +4,7 @@
     2 = Cuadrado Negro con Ficha Blanca
     3 = Cuadrado Negro con Ficha Roja
     */
+   
 var turno = "rojas";
 var estadoJuego = [
     [0,2,0,2,0,2,0,2],
@@ -24,21 +25,21 @@ function imprimirTablero(){
             switch(cell){
                 case 0:    
                 cuadrado.className = "cuadradoBlanco";
-                tablero.appendChild(cuadrado)
+                tablero.appendChild(cuadrado);
                 break;
                 case 1:
                 cuadrado.className = "cuadradoNegro";
-                tablero.appendChild(cuadrado)
+                tablero.appendChild(cuadrado);
                 break;
                 case 2:
                 cuadrado.className = "cuadradoNegro fichaBlanca";
-                cuadrado.setAttribute("tabindex", 1)
-                tablero.appendChild(cuadrado)
+                cuadrado.setAttribute("tabindex", 1);
+                tablero.appendChild(cuadrado);
                 break;
                 case 3:
                 cuadrado.className = "cuadradoNegro fichaRoja";
-                cuadrado.setAttribute("tabindex", 1)
-                tablero.appendChild(cuadrado)
+                cuadrado.setAttribute("tabindex", 1);
+                tablero.appendChild(cuadrado);
                 break;
             }
         })
@@ -68,13 +69,13 @@ window.onload = function(){
         var fichaRoja = clickedCell.classList.contains('fichaRoja');
         var fichaBlanca = clickedCell.classList.contains('fichaBlanca');
         if (clickedCell.classList.contains('seleccionado')){
-            clickedCell.classList.remove('seleccionado')
+            clickedCell.classList.remove('seleccionado');
         }
         else if (fichaRoja && turno === "rojas"){
-            clickedCell.classList.add('seleccionado')
+            clickedCell.classList.add('seleccionado');
         }
         else if (fichaBlanca && turno === "blancas"){
-            clickedCell.classList.add('seleccionado')
+            clickedCell.classList.add('seleccionado');
         }
         else if (fichaRoja && turno === "blancas"){
             notAllowed(clickedCell);
@@ -90,9 +91,9 @@ window.onload = function(){
     }
 
     function notAllowed(e){
-        e.classList.add("notAllowed")
+        e.classList.add("notAllowed");
         setTimeout(function(){
-            e.classList.remove("notAllowed")
+            e.classList.remove("notAllowed");
         }, 1000);
     }
 
