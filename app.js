@@ -18,31 +18,31 @@ var estadoJuego = [
 ]
 
 function imprimirTablero(){
-    var tablero = document.getElementById("tablero");
-    estadoJuego.forEach(function(row){
-        row.forEach(function(cell){
-            var cuadrado = document.createElement('div');
+    estadoJuego.forEach(function(row, j){        
+        var fila = document.createElement('div');
+        fila.classList.add("fila" + (j + 1));
+        row.forEach(function(cell, i){
+            var celda = document.createElement('div');
+            celda.classList.add("celda" + (i + 1));
             switch(cell){
                 case 0:    
-                cuadrado.className = "cuadradoBlanco";
-                tablero.appendChild(cuadrado);
-                break;
+                    celda.classList.add("cuadradoBlanco");                    
+                    break;
                 case 1:
-                cuadrado.className = "cuadradoNegro";
-                tablero.appendChild(cuadrado);
-                break;
+                    celda.classList.add("cuadradoNegro");
+                    break;
                 case 2:
-                cuadrado.className = "cuadradoNegro fichaBlanca";
-                cuadrado.setAttribute("tabindex", 1);
-                tablero.appendChild(cuadrado);
-                break;
+                    celda.classList.add("cuadradoNegro", "fichaBlanca");
+                    celda.setAttribute("tabindex", 1);
+                    break;
                 case 3:
-                cuadrado.className = "cuadradoNegro fichaRoja";
-                cuadrado.setAttribute("tabindex", 1);
-                tablero.appendChild(cuadrado);
-                break;
+                    celda.classList.add("cuadradoNegro", "fichaRoja");
+                    celda.setAttribute("tabindex", 1);
+                    break;
             }
+            fila.appendChild(celda);
         })
+        tablero.appendChild(fila);
     })
 }
 
@@ -59,11 +59,11 @@ function cambioJugador(){
 }
 
 window.onload = function(){
+    const tablero = document.getElementById("tablero");    
     imprimirTablero();
     
-    const clickCelda = document.getElementById("tablero");
-    clickCelda.addEventListener("click", selecFicha, true);
-    clickCelda.addEventListener("focusout", focusOut, true);
+    tablero.addEventListener("click", tableroClick, true);
+    tablero.addEventListener("focusout", focusOut, true);
     function selecFicha(clickedCellEvent){
         const clickedCell = clickedCellEvent.target;
         var fichaRoja = clickedCell.classList.contains('fichaRoja');
@@ -83,6 +83,34 @@ window.onload = function(){
         else if (fichaBlanca && turno === "rojas"){
             notAllowed(clickedCell);
         }
+    }
+
+    function tableroClick(clickedCellEvent){
+        if(hayFichaSeleccionada()){
+           moverFicha(clickedCellEvent);
+           alert('ya hay una marcada');
+        }
+        else{
+            selecFicha(clickedCellEvent);
+        }
+    }
+
+    function moverFicha(clickedCellEvent){
+        const clickedCell = clickedCellEvent.target;
+        var clickedCellIndex = Array.from(clickedCell.parentNode.children).indexOf(clickedCell)
+        console.log(clickedCellIndex);
+    }
+
+    function hayFichaSeleccionada(){
+        var seleccionado = document.getElementsByClassName('seleccionado').length
+        if (seleccionado != 0){
+            console.log('si, hay');
+            return true;
+        }
+        else{
+            console.log('no hay');
+            return false;
+        }        
     }
 
     function focusOut(e){
