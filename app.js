@@ -19,8 +19,8 @@ var estadoJuego = [
 
 function imprimirTablero(){
     estadoJuego.forEach(function(row, j){        
-        /* var fila = document.createElement('div');
-        fila.classList.add("fila" + (j + 1)); */
+        var fila = document.createElement('div');
+        fila.classList.add("fila" + (j + 1));
         row.forEach(function(cell, i){
             var celda = document.createElement('div');
             celda.classList.add("fila" + (j + 1));
@@ -41,9 +41,9 @@ function imprimirTablero(){
                     celda.setAttribute("tabindex", 1);
                     break;
             }
-            tablero.appendChild(celda);
+            fila.appendChild(celda);
         })
-        /* tablero.appendChild(fila); */
+        tablero.appendChild(fila);
     })
 }
 
@@ -60,7 +60,7 @@ function cambioJugador(){
 }
 
 function tableroClick(clickedCellEvent){
-    if(hayFichaSeleccionada(clickedCellEvent) && !clickedCellEvent.target.contains('fichaRoja')){
+    if(hayFichaSeleccionada(clickedCellEvent)){
         moverFicha(clickedCellEvent);
         console.log('ya hay una marcada');
     }
@@ -71,19 +71,29 @@ function tableroClick(clickedCellEvent){
 
 function moverFicha(clickedCellEvent){
     const clickedCell = clickedCellEvent.target;
-    var fila = clickedCell.classList[0]
-    var celda = clickedCell.classList[1]
+    var filaDestino = clickedCell.classList[0]
+    var celdaDestino = clickedCell.classList[1]
     var seleccionado = document.getElementsByClassName('seleccionado')
+    var filaInicial = seleccionado[0].classList.item(0)
+    var celdaInicial = seleccionado[0].classList.item(1)
+    console.log("Fila Inicial " + filaInicial)
+    console.log("Celda Inicial " + celdaInicial)
 
-    console.log(fila);
-    console.log(celda);
-    console.log(seleccionado);
+    /* if(fila === (fila - 1) && celda === (celda - 1) || celda === (celda + 1) ){
+        clickedCell.classList.add('fichaRoja')
+    } */
+    console.log("Fila Destino " + filaDestino);
+    console.log("Celda Destino " + celdaDestino);
+    const clickedCellIndex = Array.from(clickedCell.parentNode.children).indexOf(clickedCell)
+    const clickedCellNumber = Array.from(clickedCell.parentNode).indexOf(clickedCell)
+    console.log(clickedCellIndex)
+    console.log(clickedCellNumber)
 }
 
 function hayFichaSeleccionada(clickedCellEvent){
     var seleccionado = document.getElementsByClassName('seleccionado')
     if (seleccionado.length != 0){
-        seleccionado[0].classList.remove('seleccionado')      
+        //seleccionado[0].classList.remove('seleccionado')      
         selecFicha(clickedCellEvent)
         return true;
     }
