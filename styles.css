@@ -100,6 +100,26 @@ nav {
   float: left;
 }
 
+/* .cuadrado {  
+  width: 60px;
+  height: 60px;  
+  float: left;
+} */
+
+/* .fila:nth-child(even){
+  background-color: black;
+}
+
+.fila:nth-child(odd) .celda:nth-child(odd),
+.board__row:nth-child(even) .row__tile:nth-child(even) {
+  background-color: white;
+}
+
+.board__row:nth-child(even) .row__tile:nth-child(odd),
+.board__row:nth-child(odd) .row__tile:nth-child(even) {
+  background-color: var(--pure-black);
+} */
+
 .footer {
   padding: 19px 14px;
   margin-top: auto;

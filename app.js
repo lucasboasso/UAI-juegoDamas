@@ -20,11 +20,10 @@ var estadoJuego = [
 function imprimirTablero(){
     estadoJuego.forEach(function(row, j){        
         var fila = document.createElement('div');
-        fila.classList.add("fila" + (j + 1));
         row.forEach(function(cell, i){
             var celda = document.createElement('div');
-            celda.classList.add("fila" + (j + 1));
-            celda.classList.add("celda" + (i + 1));
+            celda.setAttribute("fila", j)
+            celda.setAttribute("columna", i)
             switch(cell){
                 case 0:    
                     celda.classList.add("cuadradoBlanco");                    
@@ -34,11 +33,9 @@ function imprimirTablero(){
                     break;
                 case 2:
                     celda.classList.add("cuadradoNegro", "fichaBlanca");
-                    celda.setAttribute("tabindex", 1);
                     break;
                 case 3:
                     celda.classList.add("cuadradoNegro", "fichaRoja");
-                    celda.setAttribute("tabindex", 1);
                     break;
             }
             fila.appendChild(celda);
@@ -60,51 +57,49 @@ function cambioJugador(){
 }
 
 function tableroClick(clickedCellEvent){
-    if(hayFichaSeleccionada(clickedCellEvent)){
+    var seleccionado = document.getElementsByClassName('seleccionado');
+    const clickedCell = clickedCellEvent.target;
+    if(hayFichaSeleccionada(clickedCellEvent) && clickedCell.classList.contains('seleccionado') == false){
         moverFicha(clickedCellEvent);
-        console.log('ya hay una marcada');
+        cambioJugador();
+        seleccionado[0].classList.remove('seleccionado')
     }
     else{
         selecFicha(clickedCellEvent);
+        console.log(clickedCell)
     }
 }
 
 function moverFicha(clickedCellEvent){
     const clickedCell = clickedCellEvent.target;
-    var filaDestino = clickedCell.classList[0]
-    var celdaDestino = clickedCell.classList[1]
-    var seleccionado = document.getElementsByClassName('seleccionado')
-    var filaInicial = seleccionado[0].classList.item(0)
-    var celdaInicial = seleccionado[0].classList.item(1)
-    console.log("Fila Inicial " + filaInicial)
-    console.log("Celda Inicial " + celdaInicial)
-
-    /* if(fila === (fila - 1) && celda === (celda - 1) || celda === (celda + 1) ){
-        clickedCell.classList.add('fichaRoja')
-    } */
-    console.log("Fila Destino " + filaDestino);
-    console.log("Celda Destino " + celdaDestino);
-    const clickedCellIndex = Array.from(clickedCell.parentNode.children).indexOf(clickedCell)
-    const clickedCellNumber = Array.from(clickedCell.parentNode).indexOf(clickedCell)
-    console.log(clickedCellIndex)
-    console.log(clickedCellNumber)
+    var filaDestino = parseInt(clickedCell.getAttribute("fila"));
+    var columnaDestino = parseInt(clickedCell.getAttribute("columna"));
+    var seleccionado = document.getElementsByClassName('seleccionado');
+    var filaInicial = parseInt(seleccionado[0].getAttribute("fila"));
+    var columnaInicial = parseInt(seleccionado[0].getAttribute("columna"));
+    if((turno === "rojas")
+    && (filaDestino == filaInicial - 1)
+    && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
+        clickedCell.classList.add('fichaRoja');
+    }
+    else if((turno === "blancas")
+    && (filaDestino == filaInicial + 1) 
+    && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
+        clickedCell.classList.add('fichaBlanca');
+    }
+    else{
+        console.log("No entro y no se movio");
+    }
 }
 
 function hayFichaSeleccionada(clickedCellEvent){
-    var seleccionado = document.getElementsByClassName('seleccionado')
+    var seleccionado = document.getElementsByClassName('seleccionado');
     if (seleccionado.length != 0){
-        //seleccionado[0].classList.remove('seleccionado')      
-        selecFicha(clickedCellEvent)
         return true;
     }
     else{
         return false;
     }        
-}
-
-function focusOut(e){
-    const element = e.target;
-    element.classList.remove('seleccionado');
 }
 
 function notAllowed(e){
@@ -140,9 +135,4 @@ window.onload = function(){
     imprimirTablero();
     
     tablero.addEventListener("click", tableroClick, true);
-    /* tablero.addEventListener("focusout", focusOut, true); */
-    
-
-    var cambiarTurno = document.getElementById("cambiarTurno");
-    cambiarTurno.onclick = cambioJugador;
 }
