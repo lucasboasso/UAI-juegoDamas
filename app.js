@@ -59,14 +59,17 @@ function cambioJugador(){
 function tableroClick(clickedCellEvent){
     var seleccionado = document.getElementsByClassName('seleccionado');
     const clickedCell = clickedCellEvent.target;
-    if(hayFichaSeleccionada(clickedCellEvent) && clickedCell.classList.contains('seleccionado') == false){
-        moverFicha(clickedCellEvent);
-        cambioJugador();
+    const fichaRoja = clickedCell.classList.contains('fichaRoja');
+    const fichaBlanca = clickedCell.classList.contains('fichaBlanca');
+    if(hayFichaSeleccionada(clickedCellEvent) && (fichaRoja || fichaBlanca) == false){
+        moverFicha(clickedCellEvent)
+    }
+    else if(hayFichaSeleccionada(clickedCell) && (fichaRoja || fichaBlanca)){
         seleccionado[0].classList.remove('seleccionado')
+        selecFicha(clickedCellEvent);
     }
     else{
         selecFicha(clickedCellEvent);
-        console.log(clickedCell)
     }
 }
 
@@ -81,15 +84,22 @@ function moverFicha(clickedCellEvent){
     && (filaDestino == filaInicial - 1)
     && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
         clickedCell.classList.add('fichaRoja');
+        seleccionado[0].classList.remove('fichaRoja', 'seleccionado')
+        cambioJugador();
     }
     else if((turno === "blancas")
     && (filaDestino == filaInicial + 1) 
     && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
         clickedCell.classList.add('fichaBlanca');
+        seleccionado[0].classList.remove('fichaBlanca', 'seleccionado')
+
+        cambioJugador();
     }
     else{
         console.log("No entro y no se movio");
+        return false;
     }
+
 }
 
 function hayFichaSeleccionada(clickedCellEvent){
