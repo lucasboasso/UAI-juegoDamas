@@ -59,7 +59,7 @@ function cambioJugador(){
 function tableroClick(clickedCellEvent){
     var seleccionado = document.getElementsByClassName('seleccionado');
     const clickedCell = clickedCellEvent.target;
-    if(hayFichaSeleccionada(clickedCellEvent) && clickedCell.classList.contains('seleccionado') == false){
+    if(hayFichaSeleccionada(clickedCellEvent)){
         moverFicha(clickedCellEvent);
         cambioJugador();
         seleccionado[0].classList.remove('seleccionado')
@@ -128,6 +128,11 @@ function selecFicha(clickedCellEvent){
     else if (fichaBlanca && turno === "rojas"){
         notAllowed(clickedCell);
     }
+}
+
+function capturar(){
+    var nombreest = document.getElementById('nombre').value;
+
 }
 
 window.onload = function(){
