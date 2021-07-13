@@ -59,9 +59,12 @@ function cambioJugador(){
 function tableroClick(clickedCellEvent){
     var seleccionado = document.getElementsByClassName('seleccionado');
     const clickedCell = clickedCellEvent.target;
-    if(hayFichaSeleccionada(clickedCellEvent)){
-        moverFicha(clickedCellEvent);
-        cambioJugador();
+    const fichaRoja = clickedCell.classList.contains('fichaRoja');
+    const fichaBlanca = clickedCell.classList.contains('fichaBlanca');
+    if(hayFichaSeleccionada(clickedCellEvent) && (fichaRoja || fichaBlanca) == false){
+        moverFicha(clickedCellEvent)
+    }
+    else if(hayFichaSeleccionada(clickedCell) && (fichaRoja || fichaBlanca)){
         seleccionado[0].classList.remove('seleccionado')
         selecFicha(clickedCellEvent);
     }
@@ -135,11 +138,6 @@ function selecFicha(clickedCellEvent){
     else if (fichaBlanca && turno === "rojas"){
         notAllowed(clickedCell);
     }
-}
-
-function capturar(){
-    var nombreest = document.getElementById('nombre').value;
-
 }
 
 window.onload = function(){
