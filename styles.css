@@ -143,15 +143,9 @@ nav {
 }
 
 .gameButtons {
-	/*-moz-border-radius:12px;
-	-webkit-border-radius:12px;
-   No sabia si ponerle soporte para navegadores
-  */
   border-radius: 12px;
 	background: -moz-linear-gradient(center top , #57aeea, #3d94d1) repeat scroll 0 0 transparent;
     background: -webkit-gradient(linear,center bottom,center top,from(#3d94d1),to(#57aeea));
-    /*filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#57aeea',EndColorStr='#3d94d1');
-    Esta linea no se que hace */
 	background-color:lightBlue;
 	display:inline-block;
 	font-size:21px;
@@ -163,8 +157,6 @@ nav {
 	border:1px solid #84C5F3;
 	text-shadow:0 0 3px #333333;
 	cursor:pointer;
-	/*-moz-box-shadow:0 0 8px 1px #888888;
-	-webkit-box-shadow:0 0 8px 1px #888888;*/
   box-shadow:0 0 8px 1px #888888 ;
 }
 

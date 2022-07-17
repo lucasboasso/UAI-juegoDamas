@@ -180,12 +180,28 @@ function nuevaPartida(){
     imprimirCartel();
 }
 
+function guardarPartida(){
+    localStorage.setItem("save", tablero.innerHTML);
+    localStorage.setItem("turno", turno);
+}
+
+function cargarPartida(){
+    turno = localStorage.getItem("turno")
+    tablero.innerHTML = localStorage.getItem("save");
+    imprimirCartel();
+}
+
 window.onload = function(){
     const tablero = document.getElementById("tablero");
     const btnNuevaPartida = document.getElementById("nuevaPartida")
+    const btnGuardarPartida = document.getElementById("guardarPartida")
+    const btnCargarPartida = document.getElementById("cargarPartida")
     imprimirTablero();
     imprimirCartel();
 
     tablero.addEventListener("click", tableroClick, true);
     btnNuevaPartida.addEventListener("click", nuevaPartida, true);
+    btnGuardarPartida.addEventListener("click", guardarPartida, true);
+    btnCargarPartida.addEventListener("click", cargarPartida, true);
+
 }
