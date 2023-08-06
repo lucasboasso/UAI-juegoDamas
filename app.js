@@ -4,8 +4,11 @@
     2 = Cuadrado Negro con Ficha Blanca
     3 = Cuadrado Negro con Ficha Roja
     */
-
+var nomJug1 = "Jugador 1"
+var nomJug2 = "Jugador 2"
 var turno = "rojas";
+var ptsBlanco = 0
+var ptsRojo = 0
 var estadoJuego = [
     [0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0],
@@ -46,7 +49,15 @@ function imprimirTablero(){
 
 function imprimirCartel(){
     var cartelTurno = document.getElementById("turno");
+    var cartelPtsJug1 = document.getElementById("ptsJug1")
+    var cartelPtsJug2 = document.getElementById("ptsJug2")
+    var nombreJug1 = document.getElementById("nomJug1")
+    var nombreJug2 = document.getElementById("nomJug2")
     cartelTurno.innerHTML = `Turno Fichas ${turno.charAt(0).toUpperCase()}${turno.slice(1)}`;
+    cartelPtsJug1.innerHTML = ptsBlanco;
+    cartelPtsJug2.innerHTML = ptsRojo;
+    nombreJug1.innerHTML = nomJug1;
+    nombreJug2.innerHTML = nomJug2;
 }
 
 function cambioJugador(){
@@ -76,6 +87,17 @@ function tableroClick(clickedCellEvent){
     }
 }
 
+function esDama(turno, filaDestino, clickedCell){
+    if (filaDestino == 0 && turno === "rojas"){
+        clickedCell.classList.remove('fichaRoja')
+        clickedCell.classList.add('fichaRojaDama')
+    }
+    else if(filaDestino == 7 && turno === "blancas"){
+        clickedCell.classList.remove('fichaBlanca')
+        clickedCell.classList.add('fichaBlancaDama')
+    }
+}
+
 function moverFicha(clickedCellEvent){
     const clickedCell = clickedCellEvent.target;
     var filaDestino = parseInt(clickedCell.getAttribute("fila"));
@@ -87,6 +109,7 @@ function moverFicha(clickedCellEvent){
         if((filaDestino == filaInicial - 1) && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
             clickedCell.classList.add('fichaRoja');
             seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
+            esDama(turno, filaDestino, clickedCell)
             cambioJugador();
         }
         else if((filaDestino == filaInicial - 2) && (columnaDestino == columnaInicial - 2 || columnaDestino == columnaInicial + 2)){
@@ -101,6 +124,7 @@ function moverFicha(clickedCellEvent){
                 clickedCell.classList.add('fichaRoja');
                 fichaVictima.classList.remove("fichaBlanca")
                 seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
+                ptsRojo++;
                 cambioJugador();
             }
         }
@@ -109,6 +133,7 @@ function moverFicha(clickedCellEvent){
         if((filaDestino == filaInicial + 1) && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
             clickedCell.classList.add('fichaBlanca');
             seleccionado[0].classList.remove('fichaBlanca', 'seleccionado');
+            esDama(turno, filaDestino, clickedCell)
             cambioJugador();
         }
         else if((filaDestino == filaInicial + 2) && (columnaDestino == columnaInicial - 2 || columnaDestino == columnaInicial + 2)){
@@ -123,16 +148,11 @@ function moverFicha(clickedCellEvent){
                 clickedCell.classList.add('fichaBlanca');
                 fichaVictima.classList.remove("fichaRoja")
                 seleccionado[0].classList.remove('fichaBlanca', 'seleccionado');
+                ptsBlanco++;
                 cambioJugador();
             }
         }
     }
-
-    else{
-        console.log("No entro y no se movio");
-        return false;
-    }
-
 }
 
 function hayFichaSeleccionada(clickedCellEvent){
@@ -174,6 +194,7 @@ function selecFicha(clickedCellEvent){
 }
 
 function nuevaPartida(){
+    tablero.addEventListener("click", tableroClick, true);
     tablero.innerHTML = "";
     imprimirTablero();
     turno = "rojas";
@@ -199,7 +220,6 @@ window.onload = function(){
     imprimirTablero();
     imprimirCartel();
 
-    tablero.addEventListener("click", tableroClick, true);
     btnNuevaPartida.addEventListener("click", nuevaPartida, true);
     btnGuardarPartida.addEventListener("click", guardarPartida, true);
     btnCargarPartida.addEventListener("click", cargarPartida, true);

@@ -175,6 +175,14 @@ nav {
   background-image: url(./img/PieceGreen.png);
 }
 
+.fichaRojaDama {
+  background-image: url(./img/PieceBlueKing.png);
+}
+
+.fichaBlancaDama {
+  background-image: url(./img/PieceGreenKing.png);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -209,4 +217,15 @@ nav {
 .header{
   text-align: center;
   color: #D4707A;
+}
+
+table, th, td{
+  border: 1px solid;
+  padding: 8px;
+}
+
+.tablaPartidas{
+  border-radius: 20px;
+  width: 500px;
+  margin: 0 auto;
 }
