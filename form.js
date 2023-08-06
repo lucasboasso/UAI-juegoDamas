@@ -2,24 +2,18 @@ var formulario = document.getElementById("formulario");
 const nombre = document.getElementById("nombre");
 const email = document.getElementById("email");
 const comentarios = document.getElementById("comentarios");
+const mailContacto = "contacto@minidamas.com"
 
 
 formulario.addEventListener('submit', e => {
     e.preventDefault();
     if(comprobaciones() === true){
-        var form = new FormData(formulario)
-        const datos = {
-        nombre: form.get('nombre'),
-        email: form.get('email'),
-        comentarios: form.get('comentarios')
+
+        document.location = "mailto:"+mailContacto+"&body="+comentarios+""
+
         }
-        postData('https://jsonplaceholder.typicode.com/posts', datos)
-        .then(data => {
-        console.log(data);
-        })
         completado();
-    }
-});
+    });
 
 function completado() {
     nombre.value="";
@@ -57,8 +51,9 @@ function comprobaciones(){
         email.classList.remove("is-invalid");
         email.classList.add("is-valid");
     }
-    if(valorComentarios === "") {
+    if(valorComentarios === "" || valorComentarios.length < 5) {
         comentarios.classList.add("is-invalid");
+        alert("Debe contener mas de 5 caracteres");
     }
     else{
         comentarios.classList.add("is-valid");
@@ -74,20 +69,4 @@ function comprobaciones(){
 
 function isEmail(email) {
 	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-}
-
-async function postData(url, data) {
-const response = await fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(data)
-});
-return response.json();
 }
