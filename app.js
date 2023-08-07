@@ -19,6 +19,9 @@ window.onload = function(){
     const ganador = document.getElementById("ganador");
     const linkTablero = document.getElementById("linkTablero");
     const tbodyModalPuntaje = document.getElementById("tbodyModalPuntaje");
+    const sortFecha = document.getElementById("sortFecha");
+    const sortPuntajeJug1 = document.getElementById("sortPuntajeJug1");
+    const sortPuntajeJug2 = document.getElementById("sortPuntajeJug2");
 
     btnNuevaPartida.addEventListener("click", nuevaPartida, true);
     btnGuardarPartida.addEventListener("click", guardarPartida, true);
@@ -30,12 +33,18 @@ window.onload = function(){
     modalPuntajeCerrar.addEventListener("click", cerrarModalPuntaje, true)
 
     linkTablero.addEventListener("click", abrirModalPuntaje, true);
+    sortFecha.addEventListener("click", ordenarFecha, true);
+    sortPuntajeJug1.addEventListener("click", ordenarPuntajeJug1, true);
+    sortPuntajeJug2.addEventListener("click", ordenarPuntajeJug2, true);
 
     var nomJug1 = "Jugador 1";
     var nomJug2 = "Jugador 2";
     var turno = "rojas";
     var ptsBlanco = 0;
     var ptsRojo = 0;
+    var fechaMayor = false;
+    var puntajeMayorJug1 = false;
+    var puntajeMayorJug2 = false;
 
     var cartelTurno = document.getElementById("turno");
     var cartelPtsJug1 = document.getElementById("ptsJug1");
@@ -147,13 +156,14 @@ window.onload = function(){
 
     function guardarPuntaje(){
         let puntaje = {
-            fecha: new Date(),
+            fecha: new Date().toLocaleString(),
+            nomJug1: nomJug1,
+            nomJug2: nomJug2,
             ptsBlanco: ptsBlanco,
             ptsRojo: ptsRojo
         };
 
         let tablaPuntaje = [];
-        console.log("entro")
 
         if(cargarPuntaje())
             tablaPuntaje = cargarPuntaje();
@@ -370,7 +380,7 @@ window.onload = function(){
         tablero.innerHTML = "";
         imprimirTablero();
         ptsBlanco = 0;
-        ptsRojo = 11;
+        ptsRojo = 0;
         turno = "rojas";
         mostrarModal();
         imprimirCartel();
@@ -400,7 +410,7 @@ window.onload = function(){
     };
 
     function abrirModalPuntaje(){
-        cargarTablaPuntaje();
+        cargarTablaPuntaje(cargarPuntaje());
         modalPuntaje.style.display = "block";
     };
 
@@ -408,15 +418,120 @@ window.onload = function(){
         modalPuntaje.style.display = "none";
     };
 
-    function cargarTablaPuntaje(){
-        tbodyModalPuntaje
-        cargarPuntaje().forEach((puntaje) => {
+    function cargarTablaPuntaje(cargaTablaPuntaje){
+        tbodyModalPuntaje.innerHTML = ''
+        if(cargaTablaPuntaje)
+        cargaTablaPuntaje.forEach((puntaje) => {
             let row = tbodyModalPuntaje.insertRow();
             row.insertCell().innerHTML = puntaje.fecha;
+            row.insertCell().innerHTML = puntaje.nomJug1;
             row.insertCell().innerHTML = puntaje.ptsBlanco;
+            row.insertCell().innerHTML = puntaje.nomJug2;
             row.insertCell().innerHTML = puntaje.ptsRojo;
         })
 
+    }
+
+    function ordenarFecha(){
+        tbodyModalPuntaje.innerHTML = "";
+
+        let tablaPuntaje = [];
+
+        if(cargarPuntaje()){
+            tablaPuntaje = cargarPuntaje();
+        }
+
+        if(fechaMayor){
+            tablaPuntaje.sort((a, b) => {
+            if(a.fecha > b.fecha)
+                return 1;
+            if(a.fecha < b.fecha)
+                return -1;
+
+            return 0;
+            })
+        }
+        else{
+            tablaPuntaje.sort((a, b) => {
+                if(a.fecha < b.fecha)
+                    return 1;
+                if(a.fecha > b.fecha)
+                    return -1;
+
+                return 0;
+                })
+        }
+        cargarTablaPuntaje(tablaPuntaje);
+
+        fechaMayor = !fechaMayor
+    }
+
+    function ordenarPuntajeJug1(){
+        tbodyModalPuntaje.innerHTML = "";
+
+        let tablaPuntaje = [];
+
+        if(cargarPuntaje()){
+            tablaPuntaje = cargarPuntaje();
+        }
+
+        if(puntajeMayorJug1){
+            tablaPuntaje.sort((a, b) => {
+            if(a.ptsBlanco > b.ptsBlanco)
+                return 1;
+            if(a.ptsBlanco < b.ptsBlanco)
+                return -1;
+
+            return 0;
+            })
+        }
+        else{
+            tablaPuntaje.sort((a, b) => {
+                if(a.ptsBlanco < b.ptsBlanco)
+                    return 1;
+                if(a.ptsBlanco > b.ptsBlanco)
+                    return -1;
+
+                return 0;
+                })
+        }
+        cargarTablaPuntaje(tablaPuntaje);
+
+        puntajeMayorJug1 = !puntajeMayorJug1
+    }
+
+    function ordenarPuntajeJug2(){
+        tbodyModalPuntaje.innerHTML = "";
+
+        let tablaPuntaje = [];
+
+        if(cargarPuntaje()){
+            tablaPuntaje = cargarPuntaje();
+        }
+
+        if(puntajeMayorJug2){
+            tablaPuntaje.sort((a, b) => {
+            if(a.ptsRojo > b.ptsRojo)
+                return 1;
+            if(a.ptsRojo < b.ptsRojo)
+                return -1;
+
+            return 0;
+            })
+        }
+        else{
+            tablaPuntaje.sort((a, b) => {
+                if(a.ptsRojo < b.ptsRojo)
+                    return 1;
+                if(a.ptsRojo > b.ptsRojo)
+                    return -1;
+
+                return 0;
+                })
+        }
+        cargarTablaPuntaje(tablaPuntaje);
+
+        puntajeMayorJug2 = !puntajeMayorJug2
     }
 
     function guardNombre(){

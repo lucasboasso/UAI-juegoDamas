@@ -33,7 +33,7 @@ nav {
   font-size: 22px;
 }
 
-.topnav a, p {
+.topnav a {
   float: left;
   color: #ffffff;
   text-align: center;
@@ -153,18 +153,22 @@ nav {
 }
 
 .fichaRoja {
+  cursor:pointer;
   background-image: url(./img/PieceBlue.png);
 }
 
 .fichaBlanca {
+  cursor:pointer;
   background-image: url(./img/PieceGreen.png);
 }
 
 .fichaRojaDama {
+  cursor:pointer;
   background-image: url(./img/PieceBlueKing.png);
 }
 
 .fichaBlancaDama {
+  cursor:pointer;
   background-image: url(./img/PieceGreenKing.png);
 }
 
@@ -183,7 +187,7 @@ nav {
   font-family: Arial Black;
   font-weight: bold;
   font-size: 30px;
-  color: rgb(0, 0, 0);
+  color: rgb(21, 116, 206);
 }
 
 .notAllowed {
@@ -204,13 +208,37 @@ nav {
   color: #D4707A;
 }
 
-table, th, td{
+th, td{
   border: 1px solid;
   padding: 8px;
+}
+
+thead {
+  background: #6fc3dd;
+}
+
+tbody {
+  background: #c0dce7;
 }
 
 .tablaPartidas{
   border-radius: 20px;
   width: 500px;
   margin: 0 auto;
+}
+
+#linkTablero {
+  cursor: pointer;
+}
+
+#sortFecha {
+  cursor: pointer;
+}
+
+#sortPuntajeJug1 {
+  cursor: pointer;
+}
+
+#sortPuntajeJug2 {
+  cursor: pointer;
 }
