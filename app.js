@@ -98,15 +98,17 @@ window.onload = function(){
         const clickedCell = clickedCellEvent.target;
         const fichaRoja = clickedCell.classList.contains('fichaRoja');
         const fichaBlanca = clickedCell.classList.contains('fichaBlanca');
-        if(hayFichaSeleccionada(clickedCellEvent) && (fichaRoja || fichaBlanca) == false){
-            moverFicha(clickedCellEvent);
+        const fichaRojaDama = clickedCell.classList.contains('fichaRojaDama');
+        const fichaBlancaDama = clickedCell.classList.contains('fichaBlancaDama');
+        if(hayFichaSeleccionada(clickedCellEvent) && (fichaRoja || fichaBlanca || fichaBlancaDama || fichaRojaDama) == false){
+            moverFicha(clickedCellEvent, seleccionado);
         }
-        else if(hayFichaSeleccionada(clickedCell) && (fichaRoja || fichaBlanca)){
+        else if(hayFichaSeleccionada(clickedCell) && (fichaRoja || fichaBlanca || fichaBlancaDama || fichaRojaDama)){
             seleccionado[0].classList.remove('seleccionado');
-            selecFicha(clickedCellEvent);
+            selecFicha(clickedCellEvent, fichaRoja, fichaBlanca, fichaRojaDama, fichaBlancaDama);
         }
         else{
-            selecFicha(clickedCellEvent);
+            selecFicha(clickedCellEvent, fichaRoja, fichaBlanca, fichaRojaDama, fichaBlancaDama);
         }
     };
 
@@ -134,13 +136,89 @@ window.onload = function(){
         }
     };
 
-    function moverFicha(clickedCellEvent){
-        const clickedCell = clickedCellEvent.target;
-        var filaDestino = parseInt(clickedCell.getAttribute("fila"));
-        var columnaDestino = parseInt(clickedCell.getAttribute("columna"));
-        var seleccionado = document.getElementsByClassName('seleccionado');
-        var filaInicial = parseInt(seleccionado[0].getAttribute("fila"));
-        var columnaInicial = parseInt(seleccionado[0].getAttribute("columna"));
+    /* function comerFicha(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell){
+        if(clickedCell){
+
+        }
+    } */
+
+    function moverFichaDama(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell){
+        if(turno === "rojas"){
+            if((filaDestino == filaInicial - 1 || filaDestino == filaInicial + 1) && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
+                clickedCell.classList.add('fichaRojaDama');
+                seleccionado[0].classList.remove('fichaRojaDama', 'seleccionado');
+                cambioJugador();
+            }
+            else if((filaDestino == filaInicial - 2 || filaDestino == filaInicial + 2) && (columnaDestino == columnaInicial - 2 || columnaDestino == columnaInicial + 2)){
+
+                if((columnaDestino == columnaInicial - 2)){
+                    var columnaFichaVictima = columnaInicial - 1;
+                }
+                else{
+                    var columnaFichaVictima = columnaInicial + 1;
+                }
+                if(filaDestino == filaInicial - 2){
+                    var filaFichaVictima = filaInicial - 1;
+                }
+                else{
+                    var filaFichaVictima = filaInicial + 1;
+                }
+                var fichaVictima = document.querySelector(`div[fila="${filaFichaVictima}"][columna="${columnaFichaVictima}"]`);
+                if(fichaVictima.classList.contains("fichaBlanca")){
+                    clickedCell.classList.add('fichaRojaDama');
+                    fichaVictima.classList.remove("fichaBlanca");
+                    seleccionado[0].classList.remove('fichaRojaDama', 'seleccionado');
+                    ptsRojo++;
+                    cambioJugador();
+                }
+                else if(fichaVictima.classList.contains("fichaBlancaDama")){
+                    clickedCell.classList.add('fichaRojaDama');
+                    fichaVictima.classList.remove("fichaBlancaDama");
+                    seleccionado[0].classList.remove('fichaRojaDama', 'seleccionado');
+                    ptsRojo++;
+                    cambioJugador();
+                }
+            }
+        }
+        else if(turno === "blancas"){
+            if((filaDestino == filaInicial + 1 || filaDestino == filaInicial - 1) && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
+                clickedCell.classList.add('fichaBlancaDama');
+                seleccionado[0].classList.remove('fichaBlancaDama', 'seleccionado');
+                cambioJugador();
+            }
+            else if((filaDestino == filaInicial + 2 || filaDestino == filaInicial - 2) && (columnaDestino == columnaInicial - 2 || columnaDestino == columnaInicial + 2)){
+                if((columnaDestino == columnaInicial - 2)){
+                    var columnaFichaVictima = columnaInicial - 1;
+                }
+                else{
+                    var columnaFichaVictima = columnaInicial + 1;
+                }
+                if((filaDestino == filaInicial - 2)){
+                    var filaFichaVictima = filaInicial - 1;
+                }
+                else{
+                    var filaFichaVictima = filaInicial + 1;
+                }
+                var fichaVictima = document.querySelector(`div[fila="${filaFichaVictima}"][columna="${columnaFichaVictima}"]`);
+                if(fichaVictima.classList.contains("fichaRoja")){
+                    clickedCell.classList.add('fichaBlancaDama');
+                    fichaVictima.classList.remove("fichaRoja");
+                    seleccionado[0].classList.remove('fichaBlancaDama', 'seleccionado');
+                    ptsBlanco++;
+                    cambioJugador();
+                }
+                else if(fichaVictima.classList.contains("fichaRojaDama")){
+                    clickedCell.classList.add('fichaBlancaDama');
+                    fichaVictima.classList.remove("fichaRojaDama");
+                    seleccionado[0].classList.remove('fichaBlancaDama', 'seleccionado');
+                    ptsBlanco++;
+                    cambioJugador();
+                }
+            }
+        }
+    }
+
+    function moverFichaComun(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell){
         if(turno === "rojas"){
             if((filaDestino == filaInicial - 1) && (columnaDestino == columnaInicial - 1 || columnaDestino == columnaInicial + 1)){
                 clickedCell.classList.add('fichaRoja');
@@ -159,6 +237,13 @@ window.onload = function(){
                 if(fichaVictima.classList.contains("fichaBlanca")){
                     clickedCell.classList.add('fichaRoja');
                     fichaVictima.classList.remove("fichaBlanca");
+                    seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
+                    ptsRojo++;
+                    cambioJugador();
+                }
+                else if(fichaVictima.classList.contains("fichaBlancaDama")){
+                    clickedCell.classList.add('fichaRoja');
+                    fichaVictima.classList.remove("fichaBlancaDama");
                     seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
                     ptsRojo++;
                     cambioJugador();
@@ -187,8 +272,36 @@ window.onload = function(){
                     ptsBlanco++;
                     cambioJugador();
                 }
+                else if(fichaVictima.classList.contains("fichaRojaDama")){
+                    clickedCell.classList.add('fichaBlanca');
+                    fichaVictima.classList.remove("fichaRojaDama");
+                    seleccionado[0].classList.remove('fichaBlanca', 'seleccionado');
+                    ptsBlanco++;
+                    cambioJugador();
+                }
             }
         }
+    }
+
+    function moverFicha(clickedCellEvent, seleccionado){
+        const clickedCell = clickedCellEvent.target;
+        var filaDestino = parseInt(clickedCell.getAttribute("fila"));
+        var columnaDestino = parseInt(clickedCell.getAttribute("columna"));
+        var seleccionado = document.getElementsByClassName('seleccionado');
+        var filaInicial = parseInt(seleccionado[0].getAttribute("fila"));
+        var columnaInicial = parseInt(seleccionado[0].getAttribute("columna"));
+        const fichaRojaSelec = seleccionado[0].classList.contains("fichaRoja")
+        const fichaRojaDamaSelec = seleccionado[0].classList.contains("fichaRojaDama")
+        const fichaBlancaSelec = seleccionado[0].classList.contains("fichaBlanca")
+        const fichaBlancaDamaSelec = seleccionado[0].classList.contains("fichaBlancaDama")
+
+        if(fichaRojaSelec || fichaBlancaSelec){
+            moverFichaComun(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell);
+        }
+        else{
+            moverFichaDama(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell);
+        }
+
     };
 
     function hayFichaSeleccionada(clickedCellEvent){
@@ -208,23 +321,21 @@ window.onload = function(){
         }, 1000);
     };
 
-    function selecFicha(clickedCellEvent){
+    function selecFicha(clickedCellEvent, fichaRoja, fichaBlanca, fichaRojaDama, fichaBlancaDama){
         const clickedCell = clickedCellEvent.target;
-        var fichaRoja = clickedCell.classList.contains('fichaRoja');
-        var fichaBlanca = clickedCell.classList.contains('fichaBlanca');
         if (clickedCell.classList.contains('seleccionado')){
             clickedCell.classList.remove('seleccionado');
         }
-        else if (fichaRoja && turno === "rojas"){
+        else if ((fichaRoja || fichaRojaDama) && turno === "rojas"){
             clickedCell.classList.add('seleccionado');
         }
-        else if (fichaBlanca && turno === "blancas"){
+        else if ((fichaBlanca || fichaBlancaDama) && turno === "blancas"){
             clickedCell.classList.add('seleccionado');
         }
-        else if (fichaRoja && turno === "blancas"){
+        else if ((fichaRoja || fichaRojaDama) && turno === "blancas"){
             notAllowed(clickedCell);
         }
-        else if (fichaBlanca && turno === "rojas"){
+        else if ((fichaBlanca || fichaBlancaDama) && turno === "rojas"){
             notAllowed(clickedCell);
         }
     };
