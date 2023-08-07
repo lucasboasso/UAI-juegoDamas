@@ -3,6 +3,11 @@ a {
 	text-decoration: none;
 }
 
+p {
+	color: #1E5096;
+	text-decoration: none;
+}
+
 body {
   color: #333333;
   background-color: rgb(80, 200, 240);
@@ -28,7 +33,7 @@ nav {
   font-size: 22px;
 }
 
-.topnav a {
+.topnav a, p {
   float: left;
   color: #ffffff;
   text-align: center;
@@ -99,26 +104,6 @@ nav {
   background-color: black;
   float: left;
 }
-
-/* .cuadrado {
-  width: 60px;
-  height: 60px;
-  float: left;
-} */
-
-/* .fila:nth-child(even){
-  background-color: black;
-}
-
-.fila:nth-child(odd) .celda:nth-child(odd),
-.board__row:nth-child(even) .row__tile:nth-child(even) {
-  background-color: white;
-}
-
-.board__row:nth-child(even) .row__tile:nth-child(odd),
-.board__row:nth-child(odd) .row__tile:nth-child(even) {
-  background-color: var(--pure-black);
-} */
 
 .footer {
   padding: 19px 14px;

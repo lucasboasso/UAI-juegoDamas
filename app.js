@@ -14,7 +14,11 @@ window.onload = function(){
     const modalGuardar = document.getElementById("guardNomb");
     const modalNuePart = document.getElementById("modalJugadores");
     const modalCartel = document.getElementById("modalCartel");
+    const modalPuntaje = document.getElementById("modalPuntaje");
+    const modalPuntajeCerrar = document.getElementById("cerrarModalPuntaje");
     const ganador = document.getElementById("ganador");
+    const linkTablero = document.getElementById("linkTablero");
+    const tbodyModalPuntaje = document.getElementById("tbodyModalPuntaje");
 
     btnNuevaPartida.addEventListener("click", nuevaPartida, true);
     btnGuardarPartida.addEventListener("click", guardarPartida, true);
@@ -23,6 +27,9 @@ window.onload = function(){
     modalCerrar.addEventListener("click", cerrarModal, true);
     modalCartelCerrar.addEventListener("click", cerrarModalCartel, true);
     modalGuardar.addEventListener("click", guardNombre, true);
+    modalPuntajeCerrar.addEventListener("click", cerrarModalPuntaje, true)
+
+    linkTablero.addEventListener("click", abrirModalPuntaje, true);
 
     var nomJug1 = "Jugador 1";
     var nomJug2 = "Jugador 2";
@@ -128,19 +135,37 @@ window.onload = function(){
             modalCartel.style.display = "block";
             ganador.innerHTML = `Ganador ${nomJug1}`
             tablero.removeEventListener("click", tableroClick, true);
+            guardarPuntaje();
         }
         else if(ptsRojo == 12){
             modalCartel.style.display = "block";
             ganador.innerHTML = `Ganador ${nomJug2}`
             tablero.removeEventListener("click", tableroClick, true);
+            guardarPuntaje();
         }
     };
 
-    /* function comerFicha(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell){
-        if(clickedCell){
+    function guardarPuntaje(){
+        let puntaje = {
+            fecha: new Date(),
+            ptsBlanco: ptsBlanco,
+            ptsRojo: ptsRojo
+        };
 
-        }
-    } */
+        let tablaPuntaje = [];
+        console.log("entro")
+
+        if(cargarPuntaje())
+            tablaPuntaje = cargarPuntaje();
+
+        tablaPuntaje.push(puntaje);
+
+        localStorage.setItem("partidas", JSON.stringify(tablaPuntaje));
+    }
+
+    function cargarPuntaje(){
+        return JSON.parse(localStorage.getItem("partidas"))
+    }
 
     function moverFichaDama(filaDestino, columnaDestino, seleccionado, filaInicial, columnaInicial, clickedCell){
         if(turno === "rojas"){
@@ -344,6 +369,8 @@ window.onload = function(){
         tablero.addEventListener("click", tableroClick, true);
         tablero.innerHTML = "";
         imprimirTablero();
+        ptsBlanco = 0;
+        ptsRojo = 11;
         turno = "rojas";
         mostrarModal();
         imprimirCartel();
@@ -371,6 +398,26 @@ window.onload = function(){
     function cerrarModalCartel(){
         modalCartel.style.display = "none";
     };
+
+    function abrirModalPuntaje(){
+        cargarTablaPuntaje();
+        modalPuntaje.style.display = "block";
+    };
+
+    function cerrarModalPuntaje(){
+        modalPuntaje.style.display = "none";
+    };
+
+    function cargarTablaPuntaje(){
+        tbodyModalPuntaje
+        cargarPuntaje().forEach((puntaje) => {
+            let row = tbodyModalPuntaje.insertRow();
+            row.insertCell().innerHTML = puntaje.fecha;
+            row.insertCell().innerHTML = puntaje.ptsBlanco;
+            row.insertCell().innerHTML = puntaje.ptsRojo;
+        })
+
+    }
 
     function guardNombre(){
         nomJug1 = document.getElementById("jugador1").value;
