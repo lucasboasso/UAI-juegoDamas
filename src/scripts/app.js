@@ -274,6 +274,7 @@ window.onload = function(){
                     fichaVictima.classList.remove("fichaBlanca");
                     seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
                     ptsRojo++;
+                    esDama(turno, filaDestino, clickedCell);
                     cambioJugador();
                 }
                 else if(fichaVictima.classList.contains("fichaBlancaDama")){
@@ -281,6 +282,7 @@ window.onload = function(){
                     fichaVictima.classList.remove("fichaBlancaDama");
                     seleccionado[0].classList.remove('fichaRoja', 'seleccionado');
                     ptsRojo++;
+                    esDama(turno, filaDestino, clickedCell);
                     cambioJugador();
                 }
             }
@@ -305,6 +307,7 @@ window.onload = function(){
                     fichaVictima.classList.remove("fichaRoja");
                     seleccionado[0].classList.remove('fichaBlanca', 'seleccionado');
                     ptsBlanco++;
+                    esDama(turno, filaDestino, clickedCell);
                     cambioJugador();
                 }
                 else if(fichaVictima.classList.contains("fichaRojaDama")){
@@ -312,6 +315,7 @@ window.onload = function(){
                     fichaVictima.classList.remove("fichaRojaDama");
                     seleccionado[0].classList.remove('fichaBlanca', 'seleccionado');
                     ptsBlanco++;
+                    esDama(turno, filaDestino, clickedCell);
                     cambioJugador();
                 }
             }
