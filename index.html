@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="modal.css">
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="./src/styles/styles.css">
+    <link rel="stylesheet" href="/src/styles/modal.css">
+    <script src="/src/scripts/app.js"></script>
     <title>Mini Damas</title>
   </head>
   <body>
@@ -13,10 +13,9 @@
       <div class="container">
         <div class="topnav">
           <a class="marca" href="#home">Mini Damas</a>
-          <a href="#damas">Damas</a>
-          <a href="#quees">¿Qué Es?</a>
           <a href="contacto.html">Contacto</a>
           <a id="linkTablero">Tablero</a>
+          <a href="https://github.com/lucasboasso/UAI-juegoDamas" target="_blank">Github</a>
         </div>
       </div>
     </nav>
@@ -38,13 +37,13 @@
         </div>
       </div>
       <div id="buttonContainer">
-        <div class="gameButtons" id="nuevaPartida">
+        <div class="buttons" id="nuevaPartida">
           Nueva partida
         </div>
-        <div class="gameButtons" id="guardarPartida">
+        <div class="buttons" id="guardarPartida">
           Guardar partida
         </div>
-        <div class="gameButtons" id="cargarPartida">
+        <div class="buttons" id="cargarPartida">
           Cargar partida
         </div>
       </div>
@@ -65,7 +64,7 @@
               <input type="text" placeholder="Jugador 2" class="nombre inputForm" id="jugador2">
           </div>
           <div class="modal-footer">
-              <input type="button" class="gameButtons" id="guardNomb" value="Guardar">
+              <input type="button" class="buttons" id="guardNomb" value="Guardar">
           </div>
       </div>
     </div>

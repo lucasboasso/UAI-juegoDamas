@@ -72,7 +72,6 @@
 
 .inputForm:focus {
     outline: none !important;
-    border: var(--border-menu);
     box-shadow: 0 0 30px #a091ba;
 }
 
